@@ -1,0 +1,156 @@
+---
+title: "Quantifying Effectiveness of Activity"
+author: "Demudu Naganaidu"
+date: "July 9, 2016"
+output: html_document
+---
+
+```{r,echo=FALSE}
+load("activity.RData")
+
+```
+
+
+##INTRODUCTION
+
+Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement - a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it.
+
+In this project, I will use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. 
+
+More information is available from the website here: http://groupware.les.inf.puc-rio.br/har (see the section on the Weight Lifting Exercise Dataset).
+
+##DATA
+
+The data for this project come from : http://groupware.les.inf.puc-rio.br/har. 
+
+
+#####Explore the Data sets
+```{r}
+dim(training)
+dim(testing)
+summary(training)
+```
+Training data consist of 19,622  and Testing data consist of 20 observations with each 160 variables
+
+#####Barplot of Classes of Activity by percentage in training data set
+
+
+```{r}
+training.plot
+```
+
+
+##Pre-Processing
+
+#####Pre-Process Training Data
+Training data pre-procesed before building model using cleandata function created in the R Script.
+
+<!-- cleandata <- function(myData) { -->
+<!--   # following variables are no use for our predictions -->
+<!--   # X - only a running number of observations -->
+<!--   # user_name - name is person who was doing the activity -->
+<!--   # raw_timestamp_part_1 & raw_timestamp_part_2 -  -->
+<!--   # cvtd_timestamp  -->
+<!--   # new_window &  num_window  -->
+
+<!--   myData <- myData[,-c(1:7)] -->
+
+<!--   #remove those variables with percentage of NA's exit 95% -->
+
+<!--   drops <- (colSums(is.na(myData))> round(dim(myData)[1])*0.95) -->
+<!--   myData <- myData[ , !(drops)] -->
+
+<!--   # Removing zero covariates -->
+
+<!--   nsv <- nearZeroVar(myData, saveMetrics = TRUE) -->
+<!--   myData <- myData[nsv$nzv==FALSE]   -->
+<!-- } -->
+  
+
+
+##Model building
+
+Since training set data is very large with 19,622 observations, we split to training and validation set
+
+I sample 30% of the data for training model and 5% data for validation
+```{r}
+train <- cleaneddata[sample(nrow(cleaneddata), round(0.3*(dim(training)[1]))), ]
+validation <- cleaneddata[sample(nrow(cleaneddata), round(0.05*(dim(training)[1]))), ]
+```
+
+
+The variable to be predicted consist of 5 classess. Thus this a classification problem, as such I propose 4 models that handle classification prediction. Model with best aacuracy will used for prediction with testing data.
+
+#####Model 1 - using decision tree
+```{r}
+#Model1 <- train(classe~., method="rpart",data=train)
+```
+
+#####Model 2 - use bagging
+```{r}
+#Model2 <- train(classe~., method="treebag",data=train)
+```
+
+#####Model 3 - use Random Forest
+
+```{r}
+#Model3 <- train(classe~., method="rf",data=train)
+```
+
+
+#####Model 4 - use Boosting
+```{r}
+#Model4 <- train(classe~., method="gbm",data=train)
+```
+
+##EVALUATION OF MODELS
+
+###1. Decision Tree Model
+```{r}
+model1sum 
+```
+
+###2. Bagging Model
+```{r}
+model2sum 
+```
+
+###3. Random Forest Model
+```{r}
+model3sum 
+```
+
+###4. Gradient Boosting Model
+```{r}
+model4sum 
+```
+##ACCURACY
+Based on the accuracy of the above 4 confusionmatrix, both Model 2 and Model 3 perform better than Model 1 and Model 4 . Between Model 2 and Model 3, Model 2 perform slightly better. As such Model 2 choosed to predict the validation data set with 20 observations.
+
+###Prediction on the Testing Data set
+Clean the testing data set
+```{r}
+
+#testing_data<- cleandata(testing)
+```
+
+Get the predictions
+```{r}
+#testing_predict <- predict(Model2,newdata = testing_data)
+```
+
+My final predictions are :
+```{r}
+testing_predict
+```
+
+##Note: The detail code for this project is found in the github. Please click Quantifying Effectiveness of Activity.R in the Github.
+
+##REFERENCE
+The above study and data for this project was genourously shared by:
+
+Velloso, E.; Bulling, A.; Gellersen, H.; Ugulino, W.; Fuks, H. Qualitative Activity Recognition of Weight Lifting Exercises. Proceedings of 4th International Conference in Cooperation with SIGCHI (Augmented Human '13) . Stuttgart, Germany: ACM SIGCHI, 2013.
+
+More information is available from the website here: http://groupware.les.inf.puc-rio.br/har (see the section on the Weight Lifting Exercise Dataset). 
+
+
