@@ -346,9 +346,10 @@ validation &lt;- cleaneddata[sample(nrow(cleaneddata), round(0.05*(dim(training)
 ## 3  Model 3 0.9872579
 ## 4  Model 4 0.9420000</code></pre>
 <p>Both Model 2 and Model 3 perform better than Model 1 and Model 4 . Between Model 2 and Model 3, Model 3 perform slightly better. As such Model 3 choosed to predict the validation data set with 20 observations.</p>
-<div id="prediction-on-the-testing-data-set" class="section level3">
-<h3>Prediction on the Testing Data set</h3>
-<p>Clean the testing data set</p>
+<p>Out of Sample Error for Model 3 is :</p>
+<pre class="r"><code>1-accuracy_table[3,2]</code></pre>
+<pre><code>## [1] 0.0127421</code></pre>
+<p>So, Model 3 Accuracy is 98.73 % and out of sample error is 1.27% ###Prediction on the Testing Data set Clean the testing data set</p>
 <pre class="r"><code>#testing_data&lt;- cleandata(testing)</code></pre>
 <p>Get the predictions</p>
 <pre class="r"><code>#testing_predict &lt;- predict(Model3,newdata = testing_data)</code></pre>
@@ -356,7 +357,6 @@ validation &lt;- cleaneddata[sample(nrow(cleaneddata), round(0.05*(dim(training)
 <pre class="r"><code>testing_predict</code></pre>
 <pre><code>##  [1] B A B A A E D B A A B C B A E E A B B B
 ## Levels: A B C D E</code></pre>
-</div>
 </div>
 <div id="note-the-detail-code-for-this-project-is-found-in-the-github.-please-click-quantifying-effectiveness-of-activity.r-in-the-github." class="section level2">
 <h2>Note: The detail code for this project is found in the github. Please click Quantifying Effectiveness of Activity.R in the Github.</h2>

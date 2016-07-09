@@ -138,7 +138,11 @@ accuracy_table
 ```
 Both Model 2 and Model 3 perform better than Model 1 and Model 4 . Between Model 2 and Model 3, Model 3 perform slightly better. As such Model 3 choosed to predict the validation data set with 20 observations.
 
-
+Out of Sample Error for Model 3 is :
+```{r}
+1-accuracy_table[3,2]
+```
+So, Model 3 Accuracy is 98.73 % and out of sample error is 1.27%
 ###Prediction on the Testing Data set
 Clean the testing data set
 ```{r}
