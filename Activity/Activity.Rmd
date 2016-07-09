@@ -2,11 +2,11 @@
 title: "Quantifying Effectiveness of Activity"
 author: "Demudu Naganaidu"
 date: "July 9, 2016"
-output: html_document
+output: pdf_document
 ---
 
 ```{r,echo=FALSE}
-load("activity.RData")
+load("D:/AppliedStatistics/Cousera/8_PREDMACHLEARN/Course_Project/activity.RData")
 
 ```
 
